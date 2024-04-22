@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alphabet Organ</title>
+    <style>
+        @font-face {
+            font-family: 'Braille2'; 
+            src: url('braillee/font/Braille2.woff') format('woff');
+        }
+        body {
+            font-family: 'Braille2', sans-serif; 
+            font-size: 42px;
+            margin: 0;
+            padding: 0;
+        }
+        #container {
+            margin-top: 20px;
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+        #inputText {
+            width: 95vw;
+            height: 90vh;
+            margin-top: 60px;
+            font-size: 3em; 
+            white-space: normal; 
+            word-wrap: break-word; 
+            line-height: 1.5; 
+            text-align: left;
+            border: none; 
+            outline: none; 
+            word-break: break-all;
+        }
+        #playButton {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: transparent; 
+            border: none; 
+            font-size: 1em;
+            cursor: pointer; 
+        }
+    </style>
+</head>
+<body onload="document.getElementById('inputText').focus();">
+    <div id="container">
+        <button id="playButton" onclick="playSound()">▶</button>
+        <div id="inputText" contenteditable="true" spellcheck="false" style="background-color: rgba(255, 255, 255, 0.5); padding: 10px;"></div> 
+    </div>
+    <script>
+        var inputText = document.getElementById("inputText");
+        var sounds = {
+                'a': 'braillee/net/a.wav', 'b': 'braillee/net/b.wav', 'c': 'braillee/net/c.wav', 'd': 'braillee/net/d.wav', 'e': 'braillee/net/e.wav', 'f': 'braillee/net/f.wav', 'g': 'braillee/net/g.wav', 'h': 'braillee/net/h.wav',
+                'i': 'braillee/net/i.wav', 'j': 'braillee/net/j.wav', 'k': 'braillee/net/k.wav', 'l': 'braillee/net/l.wav',
+                'm': 'braillee/net/m.wav', 'n': 'braillee/net/n.wav', 'o': 'braillee/net/o.wav', 'p': 'braillee/net/p.wav',
+                'q': 'braillee/net/q.wav', 'r': 'braillee/net/r.wav', 's': 'braillee/net/s.wav', 't': 'braillee/net/t.wav',
+                'u': 'braillee/net/u.wav', 'v': 'braillee/net/v.wav', 'w': 'braillee/net/w.wav', 'x': 'braillee/net/x.wav',
+                'y': 'braillee/net/y.wav', 'z': 'braillee/net/z.wav',
+            };
+
+        function playSound() {
+            var text = inputText.textContent.trim().toLowerCase(); 
+            var delay = 1150; 
+            var spaceDelay = 500; 
+            var currentTime = 0; 
+
+           
+            for (var i = 0; i < text.length; i++) {
+                var letter = text[i]; 
+                var audio = new Audio(sounds[letter]); 
+                
+                var letterDelay = (letter === ' ') ? spaceDelay : delay;
+
+                setTimeout(playSingleSound, currentTime, audio); 
+                currentTime += letterDelay; 
+            }
+        }
+
+        function playSingleSound(audio) {
+            audio.play(); 
+        }
+    </script>
+</body>
+</html>
